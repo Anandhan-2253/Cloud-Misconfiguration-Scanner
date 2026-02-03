@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ☁️ Cloud Misconfiguration Scanner – Cybersecurity Tool
 
 ## 📌 Overview
