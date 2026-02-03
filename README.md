@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ☁️ Cloud Misconfiguration Scanner – Cybersecurity Tool
 
 ## 📌 Overview
@@ -175,33 +174,3 @@ India 🇮🇳
 This project is released for educational and non-commercial use only. Unauthorized commercial usage is prohibited.
 
 ---
-
-## 🎓 Career Relevance
-
-This project demonstrates 1–2 years of practical cloud security thinking, including:
-
-- Rule-engine design
-- Schema validation
-- Security risk prioritization
-- End-to-end debugging
-- Professional documentation
-
-Suitable for entry-level to associate cloud security roles.
-
----
-
-## ✅ Why this README is perfect for jobs
-
-✔ Clean & professional  
-✔ No illegal or risky wording  
-✔ Recruiter-friendly language  
-✔ Strong cybersecurity framing  
-✔ Matches real-world tooling mindset
-
-If you want next, I can:
-- Tune this for **ATS keywords**
-- Create a **resume project section**
-- Draft **interview explanations**
-- Prepare a **LinkedIn project post**
-
-Just tell me 🚀
