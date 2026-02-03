@@ -1,0 +1,147 @@
+
+    <!DOCTYPE html>
+    <html lang='en'>
+    <head>
+        <meta charset='utf-8' />
+        <title>Cloud Misconfiguration Assessment</title>
+        <style>
+            :root {
+                --ink: #0b1f2a;
+                --muted: #475569;
+                --accent: #0f766e;
+                --bg: #f7f5f2;
+                --card: #ffffff;
+            }
+            body {
+                font-family: "Manrope", "Segoe UI", sans-serif;
+                color: var(--ink);
+                background: var(--bg);
+                margin: 0;
+                padding: 32px;
+            }
+            header {
+                background: var(--card);
+                padding: 24px;
+                border-radius: 12px;
+                box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+                margin-bottom: 24px;
+            }
+            h1 {
+                margin: 0 0 8px 0;
+                font-size: 28px;
+                letter-spacing: -0.5px;
+            }
+            .subtitle {
+                color: var(--muted);
+                margin: 0;
+            }
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 16px;
+                margin-bottom: 24px;
+            }
+            .card {
+                background: var(--card);
+                border-radius: 12px;
+                padding: 16px;
+                box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+            }
+            .pill {
+                display: inline-block;
+                padding: 6px 12px;
+                border-radius: 999px;
+                background: #d1fae5;
+                color: #065f46;
+                font-weight: 600;
+                margin-top: 8px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background: var(--card);
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+            }
+            th, td {
+                text-align: left;
+                padding: 12px;
+                border-bottom: 1px solid #e2e8f0;
+                vertical-align: top;
+                font-size: 13px;
+            }
+            th {
+                background: #e2f2f1;
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+            }
+            .section {
+                margin-bottom: 24px;
+            }
+            .muted {
+                color: var(--muted);
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Cloud Misconfiguration Assessment</h1>
+            <p class="subtitle">Generated 2026-02-03 18:28 UTC</p>
+        </header>
+
+        <section class="section grid">
+            <div class="card">
+                <h3>Overall Risk Posture</h3>
+                <div class="pill">Medium (Score 9)</div>
+                <p class="muted">Highest risk observed across IAM, storage, and network controls.</p>
+            </div>
+            <div class="card">
+                <h3>Executive Summary</h3>
+                <p class="muted">This assessment reviewed identity, storage, and network configurations to identify high-impact misconfigurations. Findings are prioritized by risk to guide remediation sequencing.</p>
+            </div>
+            <div class="card">
+                <h3>Finding Counts</h3>
+                <p class="muted">Critical: 0<br/>High: 0<br/>Medium: 2<br/>Low: 0</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Detailed Findings</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Priority</th>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Resource</th>
+                        <th>Risk</th>
+                        <th>Why It Matters</th>
+                        <th>Remediation</th>
+                        <th>CIS</th>
+                        <th>OWASP</th>
+                        <th>MITRE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>S3_NO_ENCRYPTION</td><td>S3 bucket lacks encryption at rest</td><td>s3_bucket::unnamed-bucket</td><td>Medium (9)</td><td>Unencrypted storage increases exposure if data is accessed or copied outside approved controls.</td><td>Enable SSE-S3 or SSE-KMS with a customer-managed key, and enforce encryption via bucket policy.</td><td>CIS AWS Foundations Benchmark 2.2 - Ensure S3 buckets are encrypted</td><td>OWASP Cloud Top 10 C5 - Data Exposure</td><td>T1530 - Data from Cloud Storage</td></tr>
+<tr><td>2</td><td>S3_LOGGING_DISABLED</td><td>S3 access logging is disabled</td><td>s3_bucket::unnamed-bucket</td><td>Medium (9)</td><td>Without access logs, detecting and investigating unauthorized access becomes difficult.</td><td>Enable access logging to a centralized logging bucket with restricted permissions.</td><td>CIS AWS Foundations Benchmark 2.6 - Ensure S3 bucket access logging is enabled</td><td>OWASP Cloud Top 10 C7 - Insufficient Logging and Monitoring</td><td>T1562 - Impair Defenses</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="section">
+            <div class="card">
+                <h3>Future Hardening Suggestions</h3>
+                <ul>
+                    <li>Adopt infrastructure-as-code guardrails to prevent drift.</li>
+                    <li>Centralize logging for identity, storage, and network events.</li>
+                    <li>Automate continuous audits as part of release pipelines.</li>
+                    <li>Expand coverage to managed databases and container services.</li>
+                </ul>
+            </div>
+        </section>
+    </body>
+    </html>
+    

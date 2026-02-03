@@ -1,0 +1,25 @@
+{
+  "Buckets": [
+    {
+      "BucketName": "customer-pii-data",
+      "PublicAccess": true,
+      "EncryptionAtRest": false,
+      "AccessLogging": false,
+      "DataSensitivity": "PII"
+    },
+    {
+      "BucketName": "application-logs",
+      "PublicAccess": true,
+      "EncryptionAtRest": true,
+      "AccessLogging": true,
+      "DataSensitivity": "Logs"
+    },
+    {
+      "BucketName": "private-backups",
+      "PublicAccess": false,
+      "EncryptionAtRest": true,
+      "AccessLogging": true,
+      "DataSensitivity": "Backups"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import risk_badge, service_badge %}
+
+{% block content %}
+<section class="flex items-start justify-between gap-6 mb-8">
+    <div>
+        <h1 class="text-2xl font-semibold tracking-tight">Cloud Misconfiguration Scanner</h1>
+        <p class="text-muted mt-1">Risk-Based Cloud Security Audit</p>
+    </div>
+    <div class="glass-panel px-4 py-3 rounded-lg text-right">
+        <div class="text-xs uppercase text-muted tracking-wide">Last scan</div>
+        <div class="mono text-sm">{{ last_scan or "No scans recorded" }}</div>
+    </div>
+</section>
+
+<section class="glass-panel rounded-2xl p-6 shadow-soc mb-8">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h2 class="text-lg font-semibold">Scan Control Center</h2>
+            <p class="text-muted text-sm">Upload configuration JSON files or run the bundled scenario pack.</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs mono text-muted">
+            <span class="w-2 h-2 rounded-full bg-low"></span>
+            Ready for scan
+        </div>
+    </div>
+
+    <form id="scan-form" method="POST" action="{{ url_for('scan') }}" enctype="multipart/form-data" class="space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div class="border border-border rounded-xl p-4 bg-[#0b1220]" data-upload-card="iam">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-semibold">IAM Policies JSON</p>
+                        <p class="text-xs text-muted">Identity, roles, privilege boundaries</p>
+                    </div>
+                    <span class="status-dot w-2.5 h-2.5 rounded-full bg-muted"></span>
+                </div>
+                <label class="mt-4 flex flex-col items-center justify-center border border-dashed border-border rounded-lg p-4 text-sm text-muted cursor-pointer hover:border-[#3b475a]">
+                    <span class="mono text-xs">Drag & drop or click to upload</span>
+                    <input type="file" name="iam_file" class="hidden file-input" accept="application/json" />
+                    <span class="file-name mt-2 text-xs mono text-ink">No file selected</span>
+                </label>
+            </div>
+
+            <div class="border border-border rounded-xl p-4 bg-[#0b1220]" data-upload-card="s3">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-semibold">Storage Configs JSON</p>
+                        <p class="text-xs text-muted">S3 access, encryption, logging</p>
+                    </div>
+                    <span class="status-dot w-2.5 h-2.5 rounded-full bg-muted"></span>
+                </div>
+                <label class="mt-4 flex flex-col items-center justify-center border border-dashed border-border rounded-lg p-4 text-sm text-muted cursor-pointer hover:border-[#3b475a]">
+                    <span class="mono text-xs">Drag & drop or click to upload</span>
+                    <input type="file" name="s3_file" class="hidden file-input" accept="application/json" />
+                    <span class="file-name mt-2 text-xs mono text-ink">No file selected</span>
+                </label>
+            </div>
+
+            <div class="border border-border rounded-xl p-4 bg-[#0b1220]" data-upload-card="sg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-semibold">Network Rules JSON</p>
+                        <p class="text-xs text-muted">Security groups, ingress exposure</p>
+                    </div>
+                    <span class="status-dot w-2.5 h-2.5 rounded-full bg-muted"></span>
+                </div>
+                <label class="mt-4 flex flex-col items-center justify-center border border-dashed border-border rounded-lg p-4 text-sm text-muted cursor-pointer hover:border-[#3b475a]">
+                    <span class="mono text-xs">Drag & drop or click to upload</span>
+                    <input type="file" name="sg_file" class="hidden file-input" accept="application/json" />
+                    <span class="file-name mt-2 text-xs mono text-ink">No file selected</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between flex-wrap gap-4">
+            <label class="inline-flex items-center gap-2 text-sm">
+                <input type="checkbox" name="use_sample" class="h-4 w-4 rounded border-border bg-panel text-low focus:ring-low" />
+                Use bundled sample data
+            </label>
+            <div class="flex items-center gap-3">
+                <button type="reset" class="px-4 py-2 rounded-lg border border-border text-sm mono text-muted hover:text-ink">Reset Inputs</button>
+                <button type="submit" id="run-scan" class="px-5 py-2 rounded-lg bg-ink text-base font-semibold text-[#0f172a]">Run Security Scan</button>
+            </div>
+        </div>
+
+        <div class="hidden items-center gap-3 text-sm mono" id="scan-status">
+            <span class="inline-block w-4 h-4 border-2 border-muted border-t-transparent rounded-full animate-spin"></span>
+            Running risk assessment. Do not close this window.
+        </div>
+    </form>
+</section>
+
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div class="glass-panel rounded-xl p-5">
+        <h3 class="text-sm font-semibold uppercase tracking-wide text-muted">Analyst Guidance</h3>
+        <p class="mt-2 text-sm text-muted">Run scans with least-privilege JSON exports first. Use sample data to validate the workflow before loading production snapshots.</p>
+    </div>
+    <div class="glass-panel rounded-xl p-5">
+        <h3 class="text-sm font-semibold uppercase tracking-wide text-muted">Risk Logic</h3>
+        <p class="mt-2 text-sm text-muted">Scoring uses impact × likelihood with data sensitivity, privilege, blast radius, exposure, and exploitability factors.</p>
+    </div>
+    <div class="glass-panel rounded-xl p-5">
+        <h3 class="text-sm font-semibold uppercase tracking-wide text-muted">Report Output</h3>
+        <p class="mt-2 text-sm text-muted">Generates executive summary + detailed findings mapping to CIS, OWASP Cloud Top 10, and MITRE ATT&CK.</p>
+    </div>
+</section>
+{% endblock %}

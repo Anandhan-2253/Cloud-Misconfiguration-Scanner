@@ -1,0 +1,159 @@
+
+    <!DOCTYPE html>
+    <html lang='en'>
+    <head>
+        <meta charset='utf-8' />
+        <title>Cloud Misconfiguration Assessment</title>
+        <style>
+            :root {
+                --ink: #0b1f2a;
+                --muted: #475569;
+                --accent: #0f766e;
+                --bg: #f7f5f2;
+                --card: #ffffff;
+            }
+            body {
+                font-family: "Manrope", "Segoe UI", sans-serif;
+                color: var(--ink);
+                background: var(--bg);
+                margin: 0;
+                padding: 32px;
+            }
+            header {
+                background: var(--card);
+                padding: 24px;
+                border-radius: 12px;
+                box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+                margin-bottom: 24px;
+            }
+            h1 {
+                margin: 0 0 8px 0;
+                font-size: 28px;
+                letter-spacing: -0.5px;
+            }
+            .subtitle {
+                color: var(--muted);
+                margin: 0;
+            }
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 16px;
+                margin-bottom: 24px;
+            }
+            .card {
+                background: var(--card);
+                border-radius: 12px;
+                padding: 16px;
+                box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+            }
+            .pill {
+                display: inline-block;
+                padding: 6px 12px;
+                border-radius: 999px;
+                background: #d1fae5;
+                color: #065f46;
+                font-weight: 600;
+                margin-top: 8px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background: var(--card);
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+            }
+            th, td {
+                text-align: left;
+                padding: 12px;
+                border-bottom: 1px solid #e2e8f0;
+                vertical-align: top;
+                font-size: 13px;
+            }
+            th {
+                background: #e2f2f1;
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+            }
+            .section {
+                margin-bottom: 24px;
+            }
+            .muted {
+                color: var(--muted);
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Cloud Misconfiguration Assessment</h1>
+            <p class="subtitle">Generated 2026-02-03 17:32 UTC</p>
+        </header>
+
+        <section class="section grid">
+            <div class="card">
+                <h3>Overall Risk Posture</h3>
+                <div class="pill">Critical (Score 20)</div>
+                <p class="muted">Highest risk observed across IAM, storage, and network controls.</p>
+            </div>
+            <div class="card">
+                <h3>Executive Summary</h3>
+                <p class="muted">This assessment reviewed identity, storage, and network configurations to identify high-impact misconfigurations. Findings are prioritized by risk to guide remediation sequencing.</p>
+            </div>
+            <div class="card">
+                <h3>Finding Counts</h3>
+                <p class="muted">Critical: 1<br/>High: 8<br/>Medium: 5<br/>Low: 0</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Detailed Findings</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Priority</th>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Resource</th>
+                        <th>Risk</th>
+                        <th>Why It Matters</th>
+                        <th>Remediation</th>
+                        <th>CIS</th>
+                        <th>OWASP</th>
+                        <th>MITRE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>S3_SENSITIVE_PUBLIC</td><td>Sensitive data stored in public S3 bucket</td><td>s3_bucket::prod-customer-pii</td><td>Critical (20)</td><td>Publicly accessible sensitive data can lead to regulatory violations and immediate breach impact.</td><td>Remove public access immediately, rotate exposed credentials, and validate data handling compliance.</td><td>CIS AWS Foundations Benchmark 2.1 - Ensure S3 buckets are not publicly accessible</td><td>OWASP Cloud Top 10 C5 - Data Exposure</td><td>T1530 - Data from Cloud Storage</td></tr>
+<tr><td>2</td><td>IAM_WILDCARD_ACTION</td><td>IAM policy allows wildcard actions</td><td>iam_policy::AdminLikePolicy:AdminAccess</td><td>High (16)</td><td>Wildcard actions grant broad permissions that are difficult to audit and expand the blast radius of compromise.</td><td>Restrict IAM actions to only the services and verbs required. Use explicit allow lists and scoped conditions.</td><td>CIS AWS Foundations Benchmark 1.16 - Ensure IAM policies follow least privilege</td><td>OWASP Cloud Top 10 C2 - Excessive Privileges</td><td>T1078.004 - Valid Accounts: Cloud Accounts</td></tr>
+<tr><td>3</td><td>IAM_MISSING_CONDITIONS</td><td>Privileged IAM policy without conditions</td><td>iam_policy::AdminLikePolicy:AdminAccess</td><td>High (16)</td><td>Privileged actions without MFA or IP-based conditions increase the likelihood of account takeover abuse.</td><td>Add conditions such as MFA requirements or source IP restrictions for privileged actions.</td><td>CIS AWS Foundations Benchmark 1.14 - Ensure IAM conditions are used for privileged actions</td><td>OWASP Cloud Top 10 C2 - Excessive Privileges</td><td>T1078.004 - Valid Accounts: Cloud Accounts</td></tr>
+<tr><td>4</td><td>IAM_MISSING_CONDITIONS</td><td>Privileged IAM policy without conditions</td><td>iam_policy::OpsPolicy:PassRole</td><td>High (16)</td><td>Privileged actions without MFA or IP-based conditions increase the likelihood of account takeover abuse.</td><td>Add conditions such as MFA requirements or source IP restrictions for privileged actions.</td><td>CIS AWS Foundations Benchmark 1.14 - Ensure IAM conditions are used for privileged actions</td><td>OWASP Cloud Top 10 C2 - Excessive Privileges</td><td>T1078.004 - Valid Accounts: Cloud Accounts</td></tr>
+<tr><td>5</td><td>IAM_PRIV_ESCALATION</td><td>IAM privilege escalation pathway detected</td><td>iam_policy::OpsPolicy:PassRole</td><td>High (16)</td><td>Policy includes actions commonly used to escalate privileges (e.g., PassRole or policy attachment).</td><td>Limit PassRole and policy attachment permissions to tightly scoped roles and enforce condition keys.</td><td>CIS AWS Foundations Benchmark 1.18 - Ensure privileged actions are restricted</td><td>OWASP Cloud Top 10 C2 - Excessive Privileges</td><td>T1098 - Account Manipulation</td></tr>
+<tr><td>6</td><td>S3_PUBLIC_ACCESS</td><td>S3 bucket allows public access</td><td>s3_bucket::prod-customer-pii</td><td>High (15)</td><td>Public access increases the likelihood of data exposure or tampering, especially for sensitive data.</td><td>Block public access at the bucket and account level. Use signed URLs or CloudFront for controlled sharing.</td><td>CIS AWS Foundations Benchmark 2.1 - Ensure S3 buckets are not publicly accessible</td><td>OWASP Cloud Top 10 C5 - Data Exposure</td><td>T1530 - Data from Cloud Storage</td></tr>
+<tr><td>7</td><td>NET_PUBLIC_SSH</td><td>SSH open to the internet</td><td>security_group::sg-0abc1234</td><td>High (15)</td><td>Public SSH access increases risk of brute-force and credential stuffing attacks.</td><td>Restrict SSH to corporate IP ranges, use bastions, and enforce MFA/SSM Session Manager.</td><td>CIS AWS Foundations Benchmark 4.1 - Ensure no security groups allow 0.0.0.0/0 to port 22</td><td>OWASP Cloud Top 10 C3 - Insecure Interfaces</td><td>T1133 - External Remote Services</td></tr>
+<tr><td>8</td><td>NET_PROD_NO_SEGMENT</td><td>Production security group lacks segmentation</td><td>security_group::sg-0abc1234</td><td>High (12)</td><td>Production assets exposed directly to the internet increase blast radius and reduce isolation.</td><td>Introduce tiered security groups (web/app/db) and restrict public access to edge tiers only.</td><td>CIS AWS Foundations Benchmark 4.4 - Enforce security group segmentation for production</td><td>OWASP Cloud Top 10 C6 - Misconfiguration and Inadequate Change Control</td><td>T1021 - Remote Services</td></tr>
+<tr><td>9</td><td>NET_PROD_NO_SEGMENT</td><td>Production security group lacks segmentation</td><td>security_group::sg-0abc1234</td><td>High (12)</td><td>Production assets exposed directly to the internet increase blast radius and reduce isolation.</td><td>Introduce tiered security groups (web/app/db) and restrict public access to edge tiers only.</td><td>CIS AWS Foundations Benchmark 4.4 - Enforce security group segmentation for production</td><td>OWASP Cloud Top 10 C6 - Misconfiguration and Inadequate Change Control</td><td>T1021 - Remote Services</td></tr>
+<tr><td>10</td><td>S3_PUBLIC_ACCESS</td><td>S3 bucket allows public access</td><td>s3_bucket::central-logs</td><td>Medium (10)</td><td>Public access increases the likelihood of data exposure or tampering, especially for sensitive data.</td><td>Block public access at the bucket and account level. Use signed URLs or CloudFront for controlled sharing.</td><td>CIS AWS Foundations Benchmark 2.1 - Ensure S3 buckets are not publicly accessible</td><td>OWASP Cloud Top 10 C5 - Data Exposure</td><td>T1530 - Data from Cloud Storage</td></tr>
+<tr><td>11</td><td>IAM_WILDCARD_RESOURCE</td><td>IAM policy allows wildcard resources</td><td>iam_policy::AdminLikePolicy:AdminAccess</td><td>Medium (9)</td><td>Wildcard resources remove resource-level boundaries, enabling lateral movement across the account.</td><td>Scope resources to specific ARNs. Avoid '*' unless a service requires it and document the exception.</td><td>CIS AWS Foundations Benchmark 1.16 - Ensure IAM policies follow least privilege</td><td>OWASP Cloud Top 10 C2 - Excessive Privileges</td><td>T1098 - Account Manipulation</td></tr>
+<tr><td>12</td><td>IAM_WILDCARD_RESOURCE</td><td>IAM policy allows wildcard resources</td><td>iam_policy::OpsPolicy:PassRole</td><td>Medium (9)</td><td>Wildcard resources remove resource-level boundaries, enabling lateral movement across the account.</td><td>Scope resources to specific ARNs. Avoid '*' unless a service requires it and document the exception.</td><td>CIS AWS Foundations Benchmark 1.16 - Ensure IAM policies follow least privilege</td><td>OWASP Cloud Top 10 C2 - Excessive Privileges</td><td>T1098 - Account Manipulation</td></tr>
+<tr><td>13</td><td>S3_NO_ENCRYPTION</td><td>S3 bucket lacks encryption at rest</td><td>s3_bucket::prod-customer-pii</td><td>Medium (9)</td><td>Unencrypted storage increases exposure if data is accessed or copied outside approved controls.</td><td>Enable SSE-S3 or SSE-KMS with a customer-managed key, and enforce encryption via bucket policy.</td><td>CIS AWS Foundations Benchmark 2.2 - Ensure S3 buckets are encrypted</td><td>OWASP Cloud Top 10 C5 - Data Exposure</td><td>T1530 - Data from Cloud Storage</td></tr>
+<tr><td>14</td><td>S3_LOGGING_DISABLED</td><td>S3 access logging is disabled</td><td>s3_bucket::prod-customer-pii</td><td>Medium (9)</td><td>Without access logs, detecting and investigating unauthorized access becomes difficult.</td><td>Enable access logging to a centralized logging bucket with restricted permissions.</td><td>CIS AWS Foundations Benchmark 2.6 - Ensure S3 bucket access logging is enabled</td><td>OWASP Cloud Top 10 C7 - Insufficient Logging and Monitoring</td><td>T1562 - Impair Defenses</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="section">
+            <div class="card">
+                <h3>Future Hardening Suggestions</h3>
+                <ul>
+                    <li>Adopt infrastructure-as-code guardrails to prevent drift.</li>
+                    <li>Centralize logging for identity, storage, and network events.</li>
+                    <li>Automate continuous audits as part of release pipelines.</li>
+                    <li>Expand coverage to managed databases and container services.</li>
+                </ul>
+            </div>
+        </section>
+    </body>
+    </html>
+    

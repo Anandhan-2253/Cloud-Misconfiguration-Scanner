@@ -1,0 +1,13 @@
+{% macro risk_badge(level) -%}
+    {% set color = {
+        "Critical": "bg-critical text-white",
+        "High": "bg-high text-white",
+        "Medium": "bg-medium text-black",
+        "Low": "bg-low text-black"
+    }.get(level, "bg-slate-600 text-white") %}
+    <span class="px-2.5 py-1 rounded-full text-xs font-semibold tracking-wide {{ color }}">{{ level }}</span>
+{%- endmacro %}
+
+{% macro service_badge(service) -%}
+    <span class="px-2 py-1 rounded-md text-[11px] border border-border bg-[#0b1220] mono text-muted uppercase">{{ service }}</span>
+{%- endmacro %}

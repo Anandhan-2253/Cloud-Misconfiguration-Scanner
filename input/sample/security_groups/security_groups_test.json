@@ -1,0 +1,50 @@
+{
+  "SecurityGroups": [
+    {
+      "GroupName": "prod-web-sg",
+      "Environment": "Production",
+      "InboundRules": [
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 22,
+          "ToPort": 22,
+          "CidrIp": "0.0.0.0/0",
+          "Description": "SSH open to world"
+        },
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 443,
+          "ToPort": 443,
+          "CidrIp": "0.0.0.0/0",
+          "Description": "Public HTTPS access"
+        }
+      ]
+    },
+    {
+      "GroupName": "internal-app-sg",
+      "Environment": "Internal",
+      "InboundRules": [
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 8080,
+          "ToPort": 8080,
+          "CidrIp": "10.0.0.0/16",
+          "Description": "Internal application traffic"
+        }
+      ]
+    },
+    {
+      "GroupName": "legacy-rdp-sg",
+      "Environment": "Production",
+      "InboundRules": [
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 3389,
+          "ToPort": 3389,
+          "CidrIp": "0.0.0.0/0",
+          "Description": "RDP open to world"
+        }
+      ]
+    }
+  ]
+}

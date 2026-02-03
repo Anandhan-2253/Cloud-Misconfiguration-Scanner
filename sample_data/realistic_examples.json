@@ -1,0 +1,81 @@
+{
+  "iam_policies": [
+    {
+      "policy_name": "AdminLikePolicy",
+      "document": {
+        "Statement": [
+          {
+            "Sid": "AdminAccess",
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": "*"
+          }
+        ]
+      }
+    },
+    {
+      "policy_name": "OpsPolicy",
+      "document": {
+        "Statement": [
+          {
+            "Sid": "PassRole",
+            "Effect": "Allow",
+            "Action": ["iam:PassRole", "sts:AssumeRole"],
+            "Resource": "*"
+          }
+        ]
+      }
+    }
+  ],
+  "s3_configs": [
+    {
+      "bucket_name": "prod-customer-pii",
+      "environment": "prod",
+      "public_access": {"read": true, "write": false},
+      "encryption": {"enabled": false, "algorithm": "none"},
+      "logging": {"enabled": false},
+      "data_classification": "pii"
+    },
+    {
+      "bucket_name": "central-logs",
+      "environment": "prod",
+      "public_access": {"read": true, "write": false},
+      "encryption": {"enabled": true, "algorithm": "AES256"},
+      "logging": {"enabled": true, "target": "log-archive"},
+      "data_classification": "logs"
+    },
+    {
+      "bucket_name": "backups-private",
+      "environment": "prod",
+      "public_access": {"read": false, "write": false},
+      "encryption": {"enabled": true, "algorithm": "aws:kms"},
+      "logging": {"enabled": true, "target": "log-archive"},
+      "data_classification": "backups"
+    }
+  ],
+  "security_groups": [
+    {
+      "group_id": "sg-0abc1234",
+      "group_name": "prod-web-sg",
+      "environment": "prod",
+      "rules": [
+        {
+          "direction": "ingress",
+          "protocol": "tcp",
+          "from_port": 22,
+          "to_port": 22,
+          "cidr": "0.0.0.0/0",
+          "description": "Public SSH"
+        },
+        {
+          "direction": "ingress",
+          "protocol": "tcp",
+          "from_port": 80,
+          "to_port": 80,
+          "cidr": "0.0.0.0/0",
+          "description": "Public HTTP"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "Policies": [
+    {
+      "PolicyName": "AdminLikePolicy",
+      "AttachedTo": "EC2Role-Prod",
+      "PolicyDocument": {
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": "*"
+          }
+        ]
+      }
+    },
+    {
+      "PolicyName": "S3ReadOnlyPolicy",
+      "AttachedTo": "LambdaRole-Analytics",
+      "PolicyDocument": {
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": [
+              "s3:GetObject",
+              "s3:ListBucket"
+            ],
+            "Resource": "*"
+          }
+        ]
+      }
+    },
+    {
+      "PolicyName": "ScopedPolicyWithCondition",
+      "AttachedTo": "AppRole-Staging",
+      "PolicyDocument": {
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "dynamodb:GetItem",
+            "Resource": "arn:aws:dynamodb:ap-south-1:123456789012:table/AppTable",
+            "Condition": {
+              "IpAddress": {
+                "aws:SourceIp": "10.0.0.0/16"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
