@@ -163,7 +163,7 @@ This project demonstrates:
 
 ## 👤 Author
 
-Anandhanarayan K
+Anandhan
 Cloud Security & Cybersecurity Enthusiast
 India 🇮🇳
 
